@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/store/:shop", "destination": "/store.html?shop=:shop" },
+    { "source": "/track", "destination": "/orders.html" },
+    { "source": "/sell", "destination": "/login.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" }
+  ]
+}
