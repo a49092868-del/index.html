@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nova Market — Merchant Dashboard</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f6f6f6;color:#111}.top{background:#101010;color:#fff;padding:15px 18px;display:flex;justify-content:space-between;align-items:center}.logo{font-weight:900;letter-spacing:2px}.logo b{background:#ffd400;color:#111;border-radius:9px;padding:7px 9px;margin-right:8px}.wrap{max-width:1000px;margin:auto;padding:25px 16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.box{background:#fff;border:1px solid #e5e5e5;border-radius:16px;padding:20px}.box h2{margin-top:0}.field{margin:12px 0}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}.field input,.field textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;font:inherit}.field textarea{min-height:80px;resize:vertical}.btn{border:0;background:#ffd400;color:#111;padding:13px 18px;border-radius:9px;font-weight:800;cursor:pointer}.link{display:block;margin-top:12px;color:#111;font-weight:700;word-break:break-all}.preview{border:1px solid #ddd;border-radius:14px;overflow:hidden;background:#fff}.previewHead{background:#101010;color:#fff;padding:18px}.previewBody{padding:18px}.product{display:flex;justify-content:space-between;border:1px solid #eee;border-radius:10px;padding:12px;margin-top:9px}.muted{color:#777;font-size:13px}.success{background:#e9fff1;border:1px solid #b8efca;padding:12px;border-radius:9px;margin:12px 0;display:none}@media(max-width:750px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+<header class="top"><div class="logo"><b>N</b>NOVA MARKET</div><span>Merchant Dashboard</span></header>
+<main class="wrap">
+<h1>Create your store</h1><p class="muted">Build a simple storefront and let customers order through WhatsApp.</p>
+<div class="grid">
+<section class="box"><h2>Store details</h2>
+<div class="field"><label>Store name</label><input id="name" placeholder="e.g. Abdul Watches"></div>
+<div class="field"><label>Your WhatsApp number</label><input id="wa" placeholder="233XXXXXXXXX"></div>
+<div class="field"><label>Store description</label><textarea id="desc" placeholder="What do you sell?"></textarea></div>
+<div class="field"><label>Product 1</label><input id="p1" placeholder="Product name"></div>
+<div class="field"><label>Price (GH₵)</label><input id="pr1" type="number" placeholder="100"></div>
+<div class="field"><label>Product 2</label><input id="p2" placeholder="Product name"></div>
+<div class="field"><label>Price (GH₵)</label><input id="pr2" type="number" placeholder="150"></div>
+<div class="field"><label>Product 3</label><input id="p3" placeholder="Product name"></div>
+<div class="field"><label>Price (GH₵)</label><input id="pr3" type="number" placeholder="200"></div>
+<button class="btn" onclick="saveStore()">Create Store</button><div id="ok" class="success"></div>
+<a id="storeLink" class="link" style="display:none"></a>
+</section>
+<section class="box"><h2>Live preview</h2><div class="preview"><div class="previewHead"><div id="pvName">Your Store</div><div id="pvDesc" class="muted">Your description</div></div><div class="previewBody"><b>Products</b><div id="pvProducts"></div></div></div></section>
+</div>
+</main>
+<script>
+const ids=['name','wa','desc','p1','pr1','p2','pr2','p3','pr3'];
+function val(id){return document.getElementById(id).value.trim()}
+function render(){document.getElementById('pvName').textContent=val('name')||'Your Store';document.getElementById('pvDesc').textContent=val('desc')||'Your description';let h='';[['p1','pr1'],['p2','pr2'],['p3','pr3']].forEach((x,i)=>{if(val(x[0]))h+='<div class="product"><span>'+val(x[0])+'</span><b>GH₵'+(val(x[1])||'0')+'</b></div>'});document.getElementById('pvProducts').innerHTML=h||'<p class="muted">Add products to preview them.</p>'}
+ids.forEach(id=>document.getElementById(id).addEventListener('input',render));render();
+function saveStore(){let slug=val('name').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'my-store';let s={name:val('name')||'My Store',wa:val('wa').replace(/\D/g,''),desc:val('desc'),products:[['p1','pr1'],['p2','pr2'],['p3','pr3']].map(x=>({name:val(x[0]),price:val(x[1])})).filter(x=>x.name)};localStorage.setItem('novaStore',JSON.stringify(s));let link=location.origin+location.pathname.replace('dashboard.html','store.html')+'?shop='+encodeURIComponent(slug);document.getElementById('storeLink').href=link;document.getElementById('storeLink').textContent=link;document.getElementById('storeLink').style.display='block';document.getElementById('ok').style.display='block';document.getElementById('ok').textContent='Store created on this device. Open the link below to preview it.'}
+</script></body></html>
