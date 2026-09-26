@@ -1,5 +1,38 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Order Vault GH — KoraMarket</title>
-<style>*{box-sizing:border-box}html,body{margin:0;height:100%;background:#12151c;font-family:Arial,sans-serif}.top{height:58px;background:#101010;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:fixed;top:0;left:0;right:0;z-index:10}.brand{font-weight:900;letter-spacing:1px}.brand b{background:#ffd400;color:#111;border-radius:8px;padding:7px 9px;margin-right:7px}.back{color:#111;background:#ffd400;text-decoration:none;font-weight:800;padding:9px 14px;border-radius:22px;font-size:13px}.frame{position:absolute;top:58px;left:0;right:0;bottom:0;border:0;width:100%;height:calc(100% - 58px);background:#12151c}</style></head>
-<body><header class="top"><div class="brand"><b>K</b>KORAMARKET <span style="color:#aaa;font-weight:500">/ Order Vault</span></div><a class="back" href="./">← Back to KoraMarket</a></header><iframe class="frame" src="https://a49092868-del.github.io/Neymar-s-hub/" title="Order Vault GH" loading="eager"></iframe></body></html>
+<meta name="description" content="Tell KoraMarket what you need and Order Vault GH will help source it.">
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#12151c;color:#ece5d6;font-family:Arial,sans-serif;line-height:1.6}.top{position:sticky;top:0;z-index:20;background:#101010;border-bottom:1px solid #292d35;padding:12px 16px}.nav{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:900;letter-spacing:1px}.brand b{background:#ffd400;color:#111;border-radius:8px;padding:7px 9px;margin-right:7px}.back{color:#111;background:#ffd400;text-decoration:none;font-weight:800;padding:9px 14px;border-radius:22px;font-size:13px;white-space:nowrap}.wrap{max-width:1050px;margin:auto;padding:0 20px}.hero{padding:70px 0 55px;background:radial-gradient(circle at 80% 20%,rgba(183,138,74,.18),transparent 35%)}.eyebrow{color:#d4a860;font-weight:800;letter-spacing:3px;font-size:12px}.hero h1{font-family:Georgia,serif;font-size:clamp(42px,8vw,76px);line-height:1;margin:12px 0}.hero h1 em{color:#d4a860;font-weight:400}.hero p{max-width:620px;color:#b9b2a1;font-size:17px}.btn{display:inline-block;margin-top:12px;background:#b78a4a;color:#111;padding:13px 20px;border-radius:28px;text-decoration:none;font-weight:800;border:0;cursor:pointer}.section{padding:50px 0;border-top:1px solid #2a2e35}.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}.card{background:#1b202a;border:1px solid #343944;border-radius:18px;padding:24px}.card h2{font-family:Georgia,serif;margin-top:0}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.step{padding:20px;border:1px solid #343944;border-radius:16px}.num{color:#d4a860;font-family:Georgia,serif;font-size:30px}.muted{color:#b9b2a1}.field{width:100%;margin:8px 0;padding:13px 14px;border:1px solid #454b57;border-radius:10px;background:#12151c;color:#ece5d6;font:inherit}.field:focus{outline:2px solid #b78a4a;outline-offset:1px}textarea.field{min-height:130px;resize:vertical}.note{font-size:13px;color:#999}.status{display:none;margin-top:12px;padding:12px;border-radius:10px;background:#252b35}.wa{background:#20c56a;color:#fff}.footer{text-align:center;padding:30px;color:#8f8b80;border-top:1px solid #2a2e35;font-size:13px}@media(max-width:700px){.grid,.steps{grid-template-columns:1fr}.hero{padding:50px 0 40px}.wrap{padding:0 15px}.nav{align-items:flex-start}.brand{font-size:14px}.back{font-size:12px;padding:8px 11px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="nav"><div class="brand"><b>K</b>KORAMARKET <span style="color:#aaa;font-weight:500">/ Order Vault</span></div><a class="back" href="./">← Back to KoraMarket</a></div></header>
+<main>
+<section class="hero"><div class="wrap"><div class="eyebrow">KORAMARKET CONCIERGE</div><h1>Order Vault <em>GH</em></h1><p>Can't find what you're looking for? Tell us what you need. We'll help you source it and arrange pickup or delivery.</p><a class="btn" href="#request">Request an item ↓</a></div></section>
+<section class="section"><div class="wrap"><div class="grid"><div><h2 style="font-family:Georgia,serif">Whatever you're after, start here.</h2><p class="muted">Send the item name, a photo/link if you have one, your preferred quantity, and any important details. We'll continue the conversation on WhatsApp.</p></div><div class="card"><strong>How it works</strong><p class="muted">1. Tell us what you need.<br>2. We check sourcing options and price.<br>3. You confirm before anything is ordered.</p></div></div></div></section>
+<section class="section" id="request"><div class="wrap"><div class="grid"><div><h2 style="font-family:Georgia,serif">Make a request</h2><p class="muted">Fill this in and we'll prepare your WhatsApp message automatically.</p><form id="form"><input id="name" class="field" placeholder="Your name" autocomplete="name" required><input id="phone" class="field" placeholder="Your phone number" inputmode="tel" autocomplete="tel" required><textarea id="requestText" class="field" placeholder="What do you want us to find? Include size, colour, quantity, brand, budget, etc." required></textarea><button class="btn wa" type="submit">💬 Send request on WhatsApp</button><div id="status" class="status"></div></form><p class="note">Your request opens WhatsApp. No payment is taken on this page.</p></div><div class="card"><h2>Why use Order Vault?</h2><p class="muted">• Help finding hard-to-find items<br>• Clear conversation before purchase<br>• Pickup or delivery can be discussed<br>• Connected to the KoraMarket experience</p><a class="btn" href="./">Continue shopping</a></div></div></div></section>
+<section class="section"><div class="wrap"><h2 style="font-family:Georgia,serif">Simple process</h2><div class="steps"><div class="step"><div class="num">01</div><strong>Tell us</strong><p class="muted">Describe the product you want.</p></div><div class="step"><div class="num">02</div><strong>We source</strong><p class="muted">We discuss available options and pricing.</p></div><div class="step"><div class="num">03</div><strong>You confirm</strong><p class="muted">Only proceed after you're comfortable with the details.</p></div></div></div></section>
+</main>
+<footer class="footer">Order Vault GH • Part of KoraMarket 🇬🇭</footer>
+<script>
+const WA="233559281991";
+document.getElementById("form").addEventListener("submit",function(e){
+ e.preventDefault();
+ const name=document.getElementById("name").value.trim();
+ const phone=document.getElementById("phone").value.trim();
+ const request=document.getElementById("requestText").value.trim();
+ if(!name||!phone||!request)return;
+ const text="Hello Order Vault GH!%0A%0AName: "+encodeURIComponent(name)+"%0APhone: "+encodeURIComponent(phone)+"%0ARequest: "+encodeURIComponent(request);
+ const url="https://wa.me/"+WA+"?text="+text;
+ const status=document.getElementById("status");
+ status.style.display="block";
+ status.textContent="Opening WhatsApp…";
+ window.open(url,"_blank","noopener");
+});
+</script>
+</body>
+</html>
