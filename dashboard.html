@@ -14,11 +14,39 @@
 <div class="modal" id="fm"><div class="modalBox"><h2>Prepare supplier fulfillment</h2><input type="hidden" id="foid"><p id="forderInfo"></p><label>Supplier</label><select id="fsupplier"></select><label>Supplier cost (GH₵)</label><input id="fcost" type="number" min="0" step="0.01"><label>Shipping cost (GH₵)</label><input id="fship" type="number" min="0" step="0.01"><label>Notes</label><textarea id="fnote" placeholder="Anything the supplier needs to know"></textarea><button class="btn" onclick="createFulfillment()">Create fulfillment</button> <button onclick="closeFulfill()">Cancel</button></div></div>
 <script type="module">
 import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-const db=createClient('https://cjaukxtlnppxzuhwozyf.supabase.co','sb_publishable_CbfRdYSeGGztUkiMqwk6Iw_55WqqwiN');let user,store,cache=[],suppliers=[],sources=[],orders=[],fulfillments=[];const $=x=>document.getElementById(x);
+const db=createClient('https://cjaukxtlnppxzuhwozyf.supabase.co','sb_publishable_CbfRdYSeGGztUkiMqwk6Iw_55WqqwiN',{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});let user,store,cache=[],suppliers=[],sources=[],orders=[],fulfillments=[];const $=x=>document.getElementById(x);
 function esc(x){return String(x??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 function slug(x){return x.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
 async function upload(f){if(!f)return null;let path=user.id+'/'+crypto.randomUUID()+'.'+(f.name.split('.').pop()||'jpg');let q=await db.storage.from('product-images').upload(path,f,{contentType:f.type||'image/jpeg'});if(q.error)throw q.error;return db.storage.from('product-images').getPublicUrl(path).data.publicUrl}
-async function start(){let r=await db.auth.getUser();user=r.data.user;if(!user)return location.href='login.html';$('account').textContent='Logged in: '+user.email;let q=await db.from('stores').select('*').eq('owner_id',user.id).maybeSingle();store=q.data;if(store){$('name').value=store.name||'';$('slug').value=store.slug||'';$('wa').value=store.whatsapp||'';$('desc').value=store.description||'';await loadAll();showLink()}}
+function withTimeout(p,ms,label){return Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej(new Error(label+' timed out. Check your internet connection and try again.')),ms))])}
+async function start(){
+  $('account').textContent='Loading your account…';
+  try{
+    let r=await withTimeout(db.auth.getSession(),8000,'Account check');
+    user=r?.data?.session?.user||null;
+    if(!user)return location.href='login.html';
+    $('account').textContent='Logged in: '+(user.email||'seller');
+    $('status').textContent='Loading your store…';
+    let q=await withTimeout(db.from('stores').select('*').eq('owner_id',user.id).maybeSingle(),8000,'Store loading');
+    if(q.error)throw q.error;
+    store=q.data;
+    if(!store){
+      $('status').textContent='No store found yet. Fill in your store details and tap Save store.';
+      return;
+    }
+    $('name').value=store.name||'';
+    $('slug').value=store.slug||'';
+    $('wa').value=store.whatsapp||'';
+    $('desc').value=store.description||'';
+    $('status').textContent='Store loaded.';
+    showLink();
+    await loadAll();
+  }catch(e){
+    console.error(e);
+    $('account').textContent='Account check failed';
+    $('status').textContent='❌ '+(e?.message||'Could not load your account/store.');
+  }
+}
 async function loadAll(){await loadProducts();await loadSuppliers();await loadSources();await loadOrders();await loadCoupons()}
 function siteBase(){if(!location.hostname.endsWith('github.io'))return location.origin;return location.origin}
 function showLink(){let u=location.hostname.endsWith('github.io')?siteBase()+'/store.html?shop='+encodeURIComponent(store.slug):location.origin+'/store/'+encodeURIComponent(store.slug);$('link').href=u;$('link').textContent='Open public store →'}
